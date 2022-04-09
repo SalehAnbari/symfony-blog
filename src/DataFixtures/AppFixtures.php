@@ -65,8 +65,8 @@ class AppFixtures extends Fixture
     {
         return [
             // $userData = [$username, $password, $roles];
-            ['saleh_admin', 'kitten', ['ROLE_ADMIN']],
-            ['saleh_user', 'kitten', ['ROLE_USER']],
+            ['saleh_admin', '123456', ['ROLE_ADMIN']],
+            ['saleh_user', '123456', ['ROLE_USER']],
         ];
     }
 

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Comment;
 use App\Entity\Post;
+use App\Entity\User;
 use App\Form\CommentType;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,17 +24,16 @@ class BlogController extends AbstractController
     }
 
     /**
-     * @Route("/article-{id}", name="read_post")
-//     * @param User|null $user
      * @param Post $post
      * @param Request $request
      * @param ManagerRegistry $doctrine
      * @return Response
      */
-    public function read(Post $post, Request $request, ManagerRegistry $doctrine): Response
+    #[Route('/article-{id}', name: 'read_post')]
+    public function read(Post $post,User $user, Request $request, ManagerRegistry $doctrine): Response
     {
         $comment = new Comment();
-//        $comment->setAuthor($user->getUserIdentifier());
+        $comment->setAuthor($user->getUserIdentifier());
         $comment->setPost($post);
 
         $form = $this->createForm(CommentType::class, $comment)->handleRequest($request);
