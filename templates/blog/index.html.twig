@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% for post in posts %}
+        <article>
+            <div class="card m-2">
+                <h3 class="card-header">
+                    {{ post.title }}
+                </h3>
+                <div class="card-body">
+                    <p class="card-text">{{ post.summary }}</p>
+                </div>
+
+                <div class="card-footer">
+                    <small>
+                        {{ post.comments|length }} comments
+                        <a href="{{ path("read_post", { id: post.id }) }}">Read more...</a>
+                    </small>
+                </div>
+            </div>
+        </article>
+    {% endfor %}
+{% endblock %}
