@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="card-body">
+        <h3 class="card-title">{{ post.title }}</h3>
+
+        {{ post.content|markdown_to_html }}
+
+        <small class="text-muted">{{ post.publishedAt|date("d/m/Y") }}</small>
+
+        <div class="col-sm-6 mt-3">
+            <div class="card">
+                <div class="card-body">
+
+                    {% if is_granted('ROLE_USER') %}
+
+                        {{ form_start(form) }}
+
+                        <fieldset>
+                            <legend>
+                                <i class="fa fa-comment" aria-hidden="true"></i> Add a comment
+                            </legend>
+
+                            {{ form_errors(form) }}
+
+                            {{ form_widget(form.content, {attr: {rows: 5}}) }}
+
+                            <button class="btn btn-primary pull-right mt-2" type="submit">
+                                <i class="fa fa-paper-plane" aria-hidden="true"></i>Submit
+                            </button>
+                        </fieldset>
+
+                        {{ form_end(form) }}
+
+                    {% else %}
+
+                        <p class="card-text">
+                            <a class="btn btn-primary"
+{#                               href="{{ path('security_login', {'redirect_to': app.request.pathInfo}) }}">#}
+                                Sign in
+                            </a>
+                            to publish a comment
+                        </p>
+
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <ul>
+            {% for comment in post.comments %}
+{#                <li>{{ comment.author }} : {{ comment.content }}</li>#}
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
