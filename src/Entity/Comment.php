@@ -16,8 +16,8 @@ class Comment
     #[ORM\ManyToOne(targetEntity: Post::class, inversedBy: 'comments')]
     private $post;
 
-//    #[ORM\Column(type: 'string')]
-//    private $author;
+    #[ORM\Column(type: 'string')]
+    private $author;
 
     #[ORM\Column(type: 'text')]
     private $content;
@@ -47,16 +47,16 @@ class Comment
         return $this;
     }
 
-//    public function getAuthor(): ?string
-//    {
-//        return $this->author;
-//    }
-//
-//    public function setAuthor(string $author): self
-//    {
-//        $this->author = $author;
-//        return $this;
-//    }
+    public function getAuthor(): ?string
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(string $author): self
+    {
+        $this->author = $author;
+        return $this;
+    }
 
     public function getContent(): ?string
     {

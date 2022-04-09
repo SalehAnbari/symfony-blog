@@ -4,7 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Comment;
 use App\Entity\Post;
-//use App\Entity\User;
+use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -12,32 +12,32 @@ use function Symfony\Component\String\u;
 
 class AppFixtures extends Fixture
 {
-//    public function __construct(
-//        private UserPasswordHasherInterface $passwordHasher,
-//    )
-//    {
-//    }
+    public function __construct(
+        private UserPasswordHasherInterface $passwordHasher,
+    )
+    {
+    }
 
     public function load(ObjectManager $manager)
     {
         $this->loadPosts($manager);
-//        $this->loadUsers($manager);
+        $this->loadUsers($manager);
     }
 
-//    private function loadUsers(ObjectManager $manager): void
-//    {
-//        foreach ($this->getUserData() as [$username, $password, $roles]) {
-//            $user = new User();
-//            $user->setUsername($username);
-//            $user->setPassword($this->passwordHasher->hashPassword($user, $password));
-//            $user->setRoles($roles);
-//
-//            $manager->persist($user);
-//            $this->addReference($username, $user);
-//        }
-//
-//        $manager->flush();
-//    }
+    private function loadUsers(ObjectManager $manager): void
+    {
+        foreach ($this->getUserData() as [$username, $password, $roles]) {
+            $user = new User();
+            $user->setUsername($username);
+            $user->setPassword($this->passwordHasher->hashPassword($user, $password));
+            $user->setRoles($roles);
+
+            $manager->persist($user);
+            $this->addReference($username, $user);
+        }
+
+        $manager->flush();
+    }
 
     private function loadPosts(ObjectManager $manager)
     {
@@ -51,7 +51,7 @@ class AppFixtures extends Fixture
 
             for ($j = 1; $j <= rand(5, 15); $j++) {
                 $comment = new Comment();
-//                $comment->setAuthor("Author " . $j);
+                $comment->setAuthor("Author " . $j);
                 $comment->setContent("Some comment ..." . $j);
                 $comment->setPost($post);
 
@@ -61,14 +61,14 @@ class AppFixtures extends Fixture
         $manager->flush();
     }
 
-//    private function getUserData(): array
-//    {
-//        return [
-//            // $userData = [$username, $password, $roles];
-//            ['saleh_admin', 'kitten', ['ROLE_ADMIN']],
-//            ['saleh_user', 'kitten', ['ROLE_USER']],
-//        ];
-//    }
+    private function getUserData(): array
+    {
+        return [
+            // $userData = [$username, $password, $roles];
+            ['saleh_admin', 'kitten', ['ROLE_ADMIN']],
+            ['saleh_user', 'kitten', ['ROLE_USER']],
+        ];
+    }
 
     private function getPhrases(): array
     {

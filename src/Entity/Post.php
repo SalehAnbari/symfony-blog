@@ -28,9 +28,9 @@ class Post
     #[ORM\Column(type: 'datetime_immutable')]
     private $publishedAt;
 
-//    #[ORM\ManyToMany(targetEntity: User::class)]
-//    #[JoinColumn(nullable: false)]
-//    private $author;
+    #[ORM\ManyToMany(targetEntity: User::class)]
+    #[JoinColumn(nullable: false)]
+    private $author;
 
     #[ORM\OneToMany(mappedBy: 'post', targetEntity: Comment::class, cascade: ["persist"], orphanRemoval: true)]
     private $comments;
@@ -93,16 +93,16 @@ class Post
         return $this;
     }
 
-//    public function getAuthor(): ?string
-//    {
-//        return $this->author;
-//    }
-//
-//    public function setAuthor(?string $author): self
-//    {
-//        $this->author = $author;
-//        return $this;
-//    }
+    public function getAuthor(): ?string
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?string $author): self
+    {
+        $this->author = $author;
+        return $this;
+    }
 
     /**
      * @return Collection|Comment[]
