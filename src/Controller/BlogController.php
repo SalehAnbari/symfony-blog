@@ -6,6 +6,7 @@ use App\Entity\Comment;
 use App\Entity\Post;
 use App\Entity\User;
 use App\Form\CommentType;
+use App\Event\CommentCreatedEvent;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,20 +24,16 @@ class BlogController extends AbstractController
         ]);
     }
 
-    /**
-     * @param Post $post
-     * @param Request $request
-     * @param ManagerRegistry $doctrine
-     * @return Response
-     */
     #[Route('/article-{id}', name: 'read_post')]
     public function read(Post $post,User $user, Request $request, ManagerRegistry $doctrine): Response
     {
         $comment = new Comment();
-        $comment->setAuthor($user->getUserIdentifier());
-        $comment->setPost($post);
-
         $form = $this->createForm(CommentType::class, $comment)->handleRequest($request);
+
+        if($this->isGranted('ROLE_USER')){
+            $comment->setAuthor($this->getUser()->getUserIdentifier());
+            $comment->setPost($post);
+        }
 
         if ($form->isSubmitted() && $form->isValid()) {
             $doctrine->getManager()->persist($comment);
