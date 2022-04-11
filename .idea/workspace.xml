@@ -5,17 +5,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9021d104-167a-4ef7-bab1-b06b48411fff" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Form/RegistrationFormType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/b2f259eb-43ed-4fb0-bf85-422771c4f5c8.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/b2f259eb-43ed-4fb0-bf85-422771c4f5c8/storage_v2/_src_/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/b2f259eb-43ed-4fb0-bf85-422771c4f5c8/storage_v2/_src_/schema/mysql.osA4Bg.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/b2f259eb-43ed-4fb0-bf85-422771c4f5c8/storage_v2/_src_/schema/performance_schema.kIw0nw.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/bae5250e-75b7-4eb6-842b-359adbe522e4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/bae5250e-75b7-4eb6-842b-359adbe522e4.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controller/Admin/AdminController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Form/PostType.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Security/PostVoter.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/admin/dashboard/delete_form.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/admin/dashboard/edit.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/admin/dashboard/form.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/admin/dashboard/index.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/admin/dashboard/new.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/admin/dashboard/show.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/admin/layout.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/BlogController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/BlogController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Comment.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Comment.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/RegistrationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/RegistrationController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/SecurityController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SecurityController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DataFixtures/AppFixtures.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/AppFixtures.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Post.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Post.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/CommentType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/CommentType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/blog/read.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/blog/read.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/security/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/security/index.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -170,14 +182,19 @@
       <path value="$PROJECT_DIR$/vendor/dflydev/dot-access-data" />
       <path value="$PROJECT_DIR$/vendor/nette/utils" />
       <path value="$PROJECT_DIR$/vendor/nette/schema" />
+      <path value="$PROJECT_DIR$/vendor/twig/intl-extra" />
     </include_path>
   </component>
   <component name="ProjectId" id="27YV92IlhTzPm3fDtA6KIXjabUL" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
@@ -189,6 +206,13 @@
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\htdocs\symfony-blog\templates\admin\dashboard" />
+      <recent name="C:\htdocs\symfony-blog\templates\admin\blog" />
+      <recent name="C:\htdocs\symfony-blog\src\Controller\Admin" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="phpunit.xml.dist" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
@@ -214,6 +238,7 @@
       <workItem from="1649531163299" duration="815000" />
       <workItem from="1649532004028" duration="316000" />
       <workItem from="1649532341550" duration="7662000" />
+      <workItem from="1649574002735" duration="30051000" />
     </task>
     <servers />
   </component>
@@ -230,5 +255,8 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>

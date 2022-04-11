@@ -39,21 +39,32 @@ class AppFixtures extends Fixture
         $manager->flush();
     }
 
+    /**
+     * @throws \Exception
+     */
     private function loadPosts(ObjectManager $manager)
     {
+        $user = new User();
+        $user->setUsername('saleh_admin');
+        $user->setRoles(['ROLE_ADMIN']);
+        $user->setPassword($this->passwordHasher->hashPassword($user, '123456'));
+
         for ($i = 1; $i <= 25; $i++) {
             $post = new Post();
             $post->setTitle('Article ' . $i);
             $post->setSummary($this->getRandomText());
             $post->setContent($this->getPostContent());
+            $post->setAuthor($user);
+            $post->setPublishedAt(new \DateTimeImmutable('now - ' . $i . 'days'));
 
             $manager->persist($post);
 
             for ($j = 1; $j <= rand(5, 15); $j++) {
                 $comment = new Comment();
                 $comment->setAuthor("Author " . $j);
-                $comment->setContent("Some comment ..." . $j);
+                $comment->setContent($this->getRandomText());
                 $comment->setPost($post);
+                $comment->setPostedAt(new \DateTimeImmutable('now + ' . $j . 'seconds'));
 
                 $manager->persist($comment);
             }
@@ -65,7 +76,7 @@ class AppFixtures extends Fixture
     {
         return [
             // $userData = [$username, $password, $roles];
-            ['saleh_admin', '123456', ['ROLE_ADMIN']],
+            ['saleh_other-admin', '123456', ['ROLE_ADMIN']],
             ['saleh_user', '123456', ['ROLE_USER']],
         ];
     }

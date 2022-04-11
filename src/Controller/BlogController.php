@@ -25,7 +25,7 @@ class BlogController extends AbstractController
     }
 
     #[Route('/article-{id}', name: 'read_post')]
-    public function read(Post $post,User $user, Request $request, ManagerRegistry $doctrine): Response
+    public function read(Post $post, Request $request, ManagerRegistry $doctrine): Response
     {
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment)->handleRequest($request);

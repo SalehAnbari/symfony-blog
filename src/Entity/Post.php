@@ -28,7 +28,7 @@ class Post
     #[ORM\Column(type: 'datetime_immutable')]
     private $publishedAt;
 
-    #[ORM\ManyToMany(targetEntity: User::class)]
+    #[ORM\ManyToOne(targetEntity: User::class, cascade: ["persist"])]
     #[JoinColumn(nullable: false)]
     private $author;
 
@@ -86,22 +86,22 @@ class Post
         return $this->publishedAt;
     }
 
-    public function setPublishedAt(\DateTimeImmutable $publishedAt): self
+    public function setPublishedAt(\DateTimeImmutable $publishedAt): void
     {
         $this->publishedAt = $publishedAt;
 
-        return $this;
+//        return $this;
     }
 
-    public function getAuthor(): ?string
+    public function getAuthor(): ?User
     {
         return $this->author;
     }
 
-    public function setAuthor(?string $author): self
+    public function setAuthor(User $author): void
     {
         $this->author = $author;
-        return $this;
+//        return $this;
     }
 
     /**
@@ -132,6 +132,5 @@ class Post
         }
         return $this;
     }
-
 
 }
