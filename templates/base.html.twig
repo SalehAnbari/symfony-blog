@@ -26,32 +26,33 @@
 <body>
 {% block header %}
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <ul class="nav">
-            <li class="nav-item">
-                <a class="navbar-brand" href="{{ path('homepage') }}">My Blog</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ path('homepage') }}">
-                    Home
-                </a>
-            </li>
-        </ul>
-        {% if app.user %}
-{#            Welcome, {{ app.user.username }}#}
-            <ul class="nav">
+        <div class="container-fluid">
+            <ul class="nav nav-pills">
+            <a class="navbar-brand" href="{{ path('homepage') }}">My Blog</a>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('homepage') }}">
+                        Home
+                    </a>
+                </li>
+                {% if app.user %}
                 <li class="nav-item">
                     <a class="nav-link" href="#">
                         Account
                     </a>
                 </li>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('admin_post_index') }}">
+                            Admin Panel
+                        </a>
+                    </li>
+                {% endif %}
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('security_logout') }}">
                         Logout
                     </a>
                 </li>
-            </ul>
-        {% else %}
-            <ul class="nav">
+                {% else %}
                 <li class="nav-item">
                     <a class="nav-link me-auto" href="{{ path('security_login') }}">
                         Sign in
@@ -63,7 +64,8 @@
                     </a>
                 </li>
             </ul>
-        {% endif %}
+            {% endif %}
+        </div>
     </nav>
 {% endblock %}
 {% block body %}{% endblock %}
