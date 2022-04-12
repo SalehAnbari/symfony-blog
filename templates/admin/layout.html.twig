@@ -1,24 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block stylesheets %}
-    {{ parent() }}
-    {{ encore_entry_link_tags('admin') }}
-{% endblock %}
 
 {% block header_navigation_links %}
     <li>
         <a href="{{ path('admin_post_index') }}">
-            <i class="fa fa-list-alt" aria-hidden="true"></i> {{ 'menu.post_list'|trans }}
+            <i class="fa fa-list-alt" aria-hidden="true"></i> Post list
         </a>
     </li>
     <li>
         <a href="{{ path('blog_index') }}">
-            <i class="fa fa-home" aria-hidden="true"></i> {{ 'menu.back_to_blog'|trans }}
+            <i class="fa fa-home" aria-hidden="true"></i> Back to blog
         </a>
     </li>
-{% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
-    {{ encore_entry_script_tags('admin') }}
 {% endblock %}

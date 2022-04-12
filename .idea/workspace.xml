@@ -6,9 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="9021d104-167a-4ef7-bab1-b06b48411fff" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/admin/dashboard/edit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/dashboard/edit.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/admin/dashboard/form.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/dashboard/form.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin/dashboard/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/dashboard/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin/dashboard/new.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/dashboard/new.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin/dashboard/show.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/dashboard/show.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin/layout.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/layout.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -219,7 +220,7 @@
       <workItem from="1649531163299" duration="815000" />
       <workItem from="1649532004028" duration="316000" />
       <workItem from="1649532341550" duration="7662000" />
-      <workItem from="1649574002735" duration="35036000" />
+      <workItem from="1649574002735" duration="37719000" />
     </task>
     <servers />
   </component>

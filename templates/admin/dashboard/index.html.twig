@@ -22,7 +22,7 @@
             <tr>
                 <td>{{ post.title }}</td>
                 <td>{{ post.publishedAt|format_datetime('medium', 'short', '', 'UTC') }}</td>
-                <td class="text-right">
+                <td class="text-center">
                     <div class="item-actions">
                         <a href="{{ path('admin_post_show', {id: post.id}) }}" class="btn btn-sm btn-primary">
                             <i class="fa fa-eye" aria-hidden="true"></i> Show Post
