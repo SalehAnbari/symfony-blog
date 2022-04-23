@@ -14,10 +14,12 @@
                 <div class="card-footer">
                     <small>
                         {{ post.comments|length }} comments
-                        <a href="{{ path("read_post", { id: post.id }) }}">Read more...</a>
+                        <a href="{{ path("read_post", { slug: post.slug }) }}">Read more...</a>
                     </small>
                 </div>
             </div>
         </article>
+    {% else %}
+        <div class="well">No posts found</div>
     {% endfor %}
 {% endblock %}

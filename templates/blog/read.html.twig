@@ -3,12 +3,14 @@
 {% block body %}
     <div class="card-body">
         <h3 class="card-title">{{ post.title }}</h3>
-
+        <p class="text-muted">
+            <small><i class="fa fa-calendar"></i> {{ post.publishedAt|format_datetime('long', 'medium') }}</small>
+            <small><i class="fa fa-user"></i> {{ post.author.username }}</small>
+        </p>
         {{ post.content|markdown_to_html }}
 
-        <small class="text-muted">{{ post.publishedAt|date("d/m/Y") }}</small>
 
-        <div class="col-sm-6 mt-3">
+        <div class="col-sm-9 mt-3">
             <div class="card">
                 <div class="card-body">
 
@@ -42,14 +44,22 @@
                         </p>
 
                     {% endif %}
+
                 </div>
             </div>
-        </div>
-
-        <ul>
             {% for comment in post.comments %}
-                <li>{{ comment.author }} : {{ comment.content }}</li>
+                <div class="row mt-2">
+                    <h6 class="col-sm-3">
+                        <strong>{{ comment.author.username }}</strong><br>
+                        <strong>{{ comment.postedAt|format_datetime('medium', 'short') }}</strong>
+                    </h6>
+                    <div class="col-sm-9">
+                        {{ comment.content|markdown_to_html }}
+                    </div>
+                </div>
+            {% else %}
+                <h4>No comments</h4>
             {% endfor %}
-        </ul>
+        </div>
     </div>
 {% endblock %}

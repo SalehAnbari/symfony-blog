@@ -8,20 +8,25 @@ use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use function Symfony\Component\String\u;
 
 class AppFixtures extends Fixture
 {
     public function __construct(
         private UserPasswordHasherInterface $passwordHasher,
+        private SluggerInterface            $slugger
     )
     {
     }
 
-    public function load(ObjectManager $manager)
+    /**
+     * @throws \Exception
+     */
+    public function load(ObjectManager $manager): void
     {
-        $this->loadPosts($manager);
         $this->loadUsers($manager);
+        $this->loadPosts($manager);
     }
 
     private function loadUsers(ObjectManager $manager): void
@@ -42,41 +47,60 @@ class AppFixtures extends Fixture
     /**
      * @throws \Exception
      */
-    private function loadPosts(ObjectManager $manager)
+    private function loadPosts(ObjectManager $manager): void
     {
-        $user = new User();
-        $user->setUsername('saleh_admin');
-        $user->setRoles(['ROLE_ADMIN']);
-        $user->setPassword($this->passwordHasher->hashPassword($user, '123456'));
-
-        for ($i = 1; $i <= 25; $i++) {
+        foreach ($this->getPostData() as [$title, $slug, $summary, $content, $publishedAt, $author]) {
             $post = new Post();
-            $post->setTitle('Article ' . $i);
-            $post->setSummary($this->getRandomText());
-            $post->setContent($this->getPostContent());
-            $post->setAuthor($user);
-            $post->setPublishedAt(new \DateTimeImmutable('now - ' . $i . 'days'));
+            $post->setTitle($title);
+            $post->setSlug($slug);
+            $post->setSummary($summary);
+            $post->setContent($content);
+            $post->setPublishedAt($publishedAt);
+            $post->setAuthor($author);
+
+            foreach (range(1, random_int(2, 10)) as $i) {
+                $comment = new Comment();
+                $comment->setAuthor($this->getReference('saleh_user'));
+                $comment->setContent($this->getRandomText(random_int(255, 512)));
+                $comment->setPostedAt(new \DateTimeImmutable('now + ' . $i . 'seconds'));
+
+                $post->addComment($comment);
+            }
 
             $manager->persist($post);
-
-            for ($j = 1; $j <= rand(5, 15); $j++) {
-                $comment = new Comment();
-                $comment->setAuthor("Author " . $j);
-                $comment->setContent($this->getRandomText());
-                $comment->setPost($post);
-                $comment->setPostedAt(new \DateTimeImmutable('now + ' . $j . 'seconds'));
-
-                $manager->persist($comment);
-            }
         }
+
         $manager->flush();
+
+    }
+
+    /**
+     * @throws \Exception
+     */
+    private function getPostData(): array
+    {
+        $posts = [];
+        foreach ($this->getPhrases() as $i => $title) {
+            // $postData = [$title, $slug, $summary, $content, $publishedAt, $author, $comments];
+            $posts[] = [
+                $title,
+                $this->slugger->slug($title)->lower(),
+                $this->getRandomText(),
+                $this->getPostContent(),
+                new \DateTimeImmutable('now - ' . $i . 'days'),
+                $this->getReference(['saleh_admin', 'saleh_other_admin'][0 === $i ? 0 : random_int(0, 1)]),
+            ];
+        }
+
+        return $posts;
     }
 
     private function getUserData(): array
     {
         return [
             // $userData = [$username, $password, $roles];
-            ['saleh_other-admin', '123456', ['ROLE_ADMIN']],
+            ['saleh_admin', '123456', ['ROLE_ADMIN']],
+            ['saleh_other_admin', '123456', ['ROLE_ADMIN']],
             ['saleh_user', '123456', ['ROLE_USER']],
         ];
     }

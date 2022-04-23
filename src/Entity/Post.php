@@ -7,7 +7,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinColumn;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
+#[UniqueEntity(
+    fields: 'slug',
+    message: 'This title was already used in another blog post, but they must be unique.',
+    errorPath: 'title',
+)]
 #[ORM\Entity(repositoryClass: PostRepository::class)]
 class Post
 {
@@ -20,6 +26,9 @@ class Post
     private $title;
 
     #[ORM\Column(type: 'string', length: 255)]
+    private $slug;
+
+    #[ORM\Column(type: 'string', length: 255)]
     private $summary;
 
     #[ORM\Column(type: 'text')]
@@ -27,6 +36,9 @@ class Post
 
     #[ORM\Column(type: 'datetime_immutable')]
     private $publishedAt;
+
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private $postViews;
 
     #[ORM\ManyToOne(targetEntity: User::class, cascade: ["persist"])]
     #[JoinColumn(nullable: false)]
@@ -51,11 +63,9 @@ class Post
         return $this->title;
     }
 
-    public function setTitle(string $title): self
+    public function setTitle(string $title): void
     {
         $this->title = $title;
-
-        return $this;
     }
 
     public function getSummary(): ?string
@@ -63,10 +73,9 @@ class Post
         return $this->summary;
     }
 
-    public function setSummary(string $summary): self
+    public function setSummary(string $summary): void
     {
         $this->summary = $summary;
-        return $this;
     }
 
     public function getContent(): ?string
@@ -74,11 +83,9 @@ class Post
         return $this->content;
     }
 
-    public function setContent(string $content): self
+    public function setContent(string $content): void
     {
         $this->content = $content;
-
-        return $this;
     }
 
     public function getPublishedAt(): ?\DateTimeImmutable
@@ -89,8 +96,6 @@ class Post
     public function setPublishedAt(\DateTimeImmutable $publishedAt): void
     {
         $this->publishedAt = $publishedAt;
-
-//        return $this;
     }
 
     public function getAuthor(): ?User
@@ -101,7 +106,6 @@ class Post
     public function setAuthor(User $author): void
     {
         $this->author = $author;
-//        return $this;
     }
 
     /**
@@ -112,17 +116,15 @@ class Post
         return $this->comments;
     }
 
-    public function addComment(Comment $comment): self
+    public function addComment(Comment $comment): void
     {
         if (!$this->comments->contains($comment)) {
             $this->comments[] = $comment;
             $comment->setPost($this);
         }
-
-        return $this;
     }
 
-    public function removeComment(Comment $comment): self
+    public function removeComment(Comment $comment): void
     {
         if ($this->comments->removeElement($comment)) {
             // set the owning side to null (unless already changed)
@@ -130,7 +132,32 @@ class Post
                 $comment->setPost(null);
             }
         }
-        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): void
+    {
+        $this->slug = $slug;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPostViews(): ?int
+    {
+        return $this->postViews;
+    }
+
+    /**
+     * @param mixed $postViews
+     */
+    public function setPostViews(int $postViews): void
+    {
+        $this->postViews = $postViews;
     }
 
 }

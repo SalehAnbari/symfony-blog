@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\CommentRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
 
 #[ORM\Entity(repositoryClass: CommentRepository::class)]
 class Comment
@@ -16,7 +17,8 @@ class Comment
     #[ORM\ManyToOne(targetEntity: Post::class, inversedBy: 'comments')]
     private $post;
 
-    #[ORM\Column(type: 'string')]
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[JoinColumn(nullable: false)]
     private $author;
 
     #[ORM\Column(type: 'text')]
@@ -40,22 +42,19 @@ class Comment
         return $this->post;
     }
 
-    public function setPost(?Post $post): self
+    public function setPost(?Post $post): void
     {
         $this->post = $post;
-
-        return $this;
     }
 
-    public function getAuthor(): ?string
+    public function getAuthor(): ?User
     {
         return $this->author;
     }
 
-    public function setAuthor(string $author): self
+    public function setAuthor(User $author): void
     {
         $this->author = $author;
-        return $this;
     }
 
     public function getContent(): ?string
@@ -63,11 +62,9 @@ class Comment
         return $this->content;
     }
 
-    public function setContent(string $content): self
+    public function setContent(string $content): void
     {
         $this->content = $content;
-
-        return $this;
     }
 
     public function getPostedAt(): ?\DateTimeImmutable
@@ -75,11 +72,8 @@ class Comment
         return $this->postedAt;
     }
 
-    public function setPostedAt(\DateTimeImmutable $postedAt): self
+    public function setPostedAt(\DateTimeImmutable $postedAt): void
     {
         $this->postedAt = $postedAt;
-
-        return $this;
     }
-
 }

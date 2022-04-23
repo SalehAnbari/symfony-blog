@@ -3,7 +3,7 @@
 {% block body_id 'admin_post_new' %}
 
 {% block body %}
-    <h1>{{ 'title.post_new'|trans }}</h1>
+    <h1>New Post</h1>
 
     {{ form_start(form) }}
     {{ form_row(form.title) }}
@@ -12,11 +12,11 @@
     {{ form_row(form.publishedAt) }}
 
     <button type="submit" class="btn btn-primary">
-        <i class="fa fa-save" aria-hidden="true"></i> {{ 'label.create_post'|trans }}
+        <i class="fa fa-save" aria-hidden="true"></i> Create Post
     </button>
-    {{ form_widget(form.saveAndCreateNew, {label: 'label.save_and_create_new', attr: {class: 'btn btn-primary'}}) }}
+    {{ form_widget(form.saveAndCreateNew) }}
     <a href="{{ path('admin_post_index') }}" class="btn btn-link">
-        <i class="fa fa-list-alt" aria-hidden="true"></i> {{ 'action.back_to_list'|trans }}
+        <i class="fa fa-list-alt" aria-hidden="true"></i> Back to list
     </a>
     {{ form_end(form) }}
 {% endblock %}

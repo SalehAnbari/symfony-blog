@@ -23,12 +23,28 @@ class PostRepository extends ServiceEntityRepository
 
     public function getAllPosts(): array
     {
-        return $this->createQueryBuilder("p")
+        $qb = $this->createQueryBuilder("p")
             ->addSelect("c")
-            ->join("p.comments", "c")
-            ->getQuery()
-            ->getResult()
-            ;
+            ->leftJoin("p.comments", "c")
+            ->orderBy('p.publishedAt', 'DESC');
+        return $qb->getQuery()->getResult();
+    }
+
+    public function filterPostsByComment($maxComments, $minComments)
+    {
+        $qb = $this->createQueryBuilder('p')
+            ->addSelect("c")
+            ->leftJoin("p.comments", "c")
+            ->where('SIZE(p.comments) > :minComments')
+            ->andWhere('SIZE(p.comments) < :maxComments')
+            ->setParameters(
+                array(
+                    'minComments' => $minComments,
+                    'maxComments' => $maxComments,
+                )
+            )
+            ->orderBy('SIZE(p.comments)', 'DESC');
+        return $qb->getQuery()->getResult();
     }
 
     /**

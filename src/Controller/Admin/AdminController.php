@@ -26,6 +26,13 @@ class AdminController extends AbstractController
         return $this->render('admin/dashboard/index.html.twig', ['posts' => $authorPosts]);
     }
 
+    #[Route('/filter', name: 'admin_post_filter', methods: ['GET'])]
+    public function filter(PostRepository $posts): Response
+    {
+        $lessThanFiveCommentPosts = $posts->filterPostsByComment(6, 2);
+        return $this->render('admin/dashboard/show_filtered_posts.html.twig', ['posts' => $lessThanFiveCommentPosts]);
+    }
+
     #[Route('/new', name: 'admin_post_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -96,5 +103,6 @@ class AdminController extends AbstractController
 
         return $this->redirectToRoute('admin_post_index');
     }
+
 
 }

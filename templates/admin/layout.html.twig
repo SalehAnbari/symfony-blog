@@ -2,14 +2,19 @@
 
 
 {% block header_navigation_links %}
-    <li>
-        <a href="{{ path('admin_post_index') }}">
-            <i class="fa fa-list-alt" aria-hidden="true"></i> Post list
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('admin_post_index') }}">
+            Post list
         </a>
     </li>
-    <li>
-        <a href="{{ path('blog_index') }}">
-            <i class="fa fa-home" aria-hidden="true"></i> Back to blog
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('admin_post_filter') }}">
+            Filtered posts
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('homepage') }}">
+            Back to blog
         </a>
     </li>
 {% endblock %}

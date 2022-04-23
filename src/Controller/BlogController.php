@@ -4,9 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Comment;
 use App\Entity\Post;
-use App\Entity\User;
 use App\Form\CommentType;
-use App\Event\CommentCreatedEvent;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,14 +22,19 @@ class BlogController extends AbstractController
         ]);
     }
 
-    #[Route('/article-{id}', name: 'read_post')]
+    #[Route('/article/{slug}', name: 'read_post')]
     public function read(Post $post, Request $request, ManagerRegistry $doctrine): Response
     {
+        $views = $post->getPostViews();
+        $post->setPostViews($views + 1);
+        $doctrine->getManager()->persist($post);
+        $doctrine->getManager()->flush();
+
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment)->handleRequest($request);
 
         if($this->isGranted('ROLE_USER')){
-            $comment->setAuthor($this->getUser()->getUserIdentifier());
+            $comment->setAuthor($this->getUser());
             $comment->setPost($post);
         }
 
@@ -39,7 +42,7 @@ class BlogController extends AbstractController
             $doctrine->getManager()->persist($comment);
             $doctrine->getManager()->flush();
 
-            return $this->redirectToRoute("read_post", ["id" => $post->getId()]);
+            return $this->redirectToRoute("read_post", ['slug' => $post->getSlug()]);
         }
 
         return $this->render("blog/read.html.twig", [
