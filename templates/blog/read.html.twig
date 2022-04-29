@@ -48,7 +48,7 @@
 
                 </div>
             </div>
-            {% for comment in post.comments %}
+            {% for comment in post.comments | sort((a,b) => b.postedAt <=> a.postedAt) %}
                 <div class="row mt-2">
                     <h6 class="col-sm-3">
                         <strong>{{ comment.author.username }}</strong><br>
