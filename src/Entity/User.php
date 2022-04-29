@@ -22,10 +22,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $id;
 
     #[ORM\Column(type: 'string', unique: true)]
-    #[
-        Assert\NotBlank,
-        Assert\Length(min: 5, max: 50)
-    ]
     private $username;
 
     #[ORM\Column(type: 'json')]
@@ -55,7 +51,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->getUserIdentifier();
     }
 
-    public function setUsername(string $username): void
+    public function setUsername(?string $username): void
     {
         $this->username = $username;
     }
@@ -90,6 +86,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPassword(string $password): void
     {
         $this->password = $password;
+    }
+
+    #[Assert\IsTrue(message: 'The password cannot match your Username')]
+    public function isPasswordSafe(): string
+    {
+        return $this->username === $this->password;
     }
 
     /**
