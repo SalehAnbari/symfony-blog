@@ -4,10 +4,10 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
-use JetBrains\PhpStorm\Pure;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[UniqueEntity(
     fields: 'username',
@@ -21,7 +21,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 180, unique: true)]
+    #[ORM\Column(type: 'string', unique: true)]
+    #[
+        Assert\NotBlank,
+        Assert\Length(min: 5, max: 50)
+    ]
     private $username;
 
     #[ORM\Column(type: 'json')]
@@ -46,7 +50,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 
-    #[Pure] public function getUsername(): ?string
+    public function getUsername(): ?string
     {
         return $this->getUserIdentifier();
     }

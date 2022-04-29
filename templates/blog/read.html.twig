@@ -2,7 +2,12 @@
 
 {% block body %}
     <div class="card-body">
-        <h3 class="card-title">{{ post.title }}</h3>
+        <h3>
+            <a class="text-decoration-none text-dark"
+               href="{{ path("read_post", { slug: post.slug }) }}">
+                {{ post.title }}
+            </a>
+        </h3>
         <p class="text-muted">
             <small><i class="fa fa-calendar"></i> {{ post.publishedAt|format_datetime('long', 'medium') }}</small>
             <small><i class="fa fa-user"></i> {{ post.author.username }}</small>
@@ -21,11 +26,7 @@
                             <legend>
                                 <i class="fa fa-comment" aria-hidden="true"></i> Add a comment
                             </legend>
-
-                            {{ form_errors(form) }}
-
-                            {{ form_widget(form.content, {attr: {rows: 5}}) }}
-
+                            {{ form_row(form.content, {attr: {rows: 5}}) }}
                             <button class="btn btn-primary pull-right mt-2" type="submit">
                                 <i class="fa fa-paper-plane" aria-hidden="true"></i>Submit
                             </button>

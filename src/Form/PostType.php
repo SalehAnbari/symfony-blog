@@ -28,18 +28,20 @@ class PostType extends AbstractType
             ->add('title', null, [
                 'attr' => ['autofocus' => true],
                 'label' => 'Title',
+                'required' => false
             ])
             ->add('summary', TextareaType::class, [
                 'label' => 'Summary',
+                'required' => false
             ])
             ->add('content', null, [
                 'attr' => ['rows' => 10],
                 'label' => 'Content',
+                'required' => false
             ])
             ->add('publishedAt', DateTimeType::class, array(
                 'input' => 'datetime_immutable',
             ))
-
             ->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
                 /** @var Post */
                 $post = $event->getData();

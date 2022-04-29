@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class BlogController extends AbstractController
 {
@@ -33,7 +34,7 @@ class BlogController extends AbstractController
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment)->handleRequest($request);
 
-        if($this->isGranted('ROLE_USER')){
+        if ($this->isGranted('ROLE_USER')) {
             $comment->setAuthor($this->getUser());
             $comment->setPost($post);
         }

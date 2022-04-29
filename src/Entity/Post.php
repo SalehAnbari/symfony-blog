@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[UniqueEntity(
     fields: 'slug',
@@ -23,15 +24,24 @@ class Post
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\NotBlank(message: 'This field should not be blank.')]
     private $title;
 
     #[ORM\Column(type: 'string', length: 255)]
     private $slug;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[
+        Assert\NotBlank(message: 'This field should not be blank'),
+        Assert\Length(max: 255)
+    ]
     private $summary;
 
     #[ORM\Column(type: 'text')]
+    #[
+        Assert\NotBlank(message: 'This field should not be blank'),
+        Assert\Length(min: 10, minMessage: 'Content must be at least 10 characters')
+    ]
     private $content;
 
     #[ORM\Column(type: 'datetime_immutable')]
@@ -63,7 +73,7 @@ class Post
         return $this->title;
     }
 
-    public function setTitle(string $title): void
+    public function setTitle(?string $title): void
     {
         $this->title = $title;
     }
@@ -73,7 +83,7 @@ class Post
         return $this->summary;
     }
 
-    public function setSummary(string $summary): void
+    public function setSummary(?string $summary): void
     {
         $this->summary = $summary;
     }
@@ -83,7 +93,7 @@ class Post
         return $this->content;
     }
 
-    public function setContent(string $content): void
+    public function setContent(?string $content): void
     {
         $this->content = $content;
     }

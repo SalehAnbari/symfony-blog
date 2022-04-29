@@ -12,11 +12,12 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class CommentType extends AbstractType
 {
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add("content", TextareaType::class, [
-                "label" => "Write message :"
+                "label" => false,
+                "required" => false
             ]);
     }
 

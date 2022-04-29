@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\CommentRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinColumn;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CommentRepository::class)]
 class Comment
@@ -22,6 +23,15 @@ class Comment
     private $author;
 
     #[ORM\Column(type: 'text')]
+    #[
+        Assert\NotBlank(message: 'This field should not be blank.'),
+        Assert\Length(
+            min: 5,
+            max: 1000,
+            minMessage: 'Comment must be at least 5 characters',
+            maxMessage: 'Comment con not be more than 10000 characters'
+        )
+    ]
     private $content;
 
     #[ORM\Column(type: 'datetime_immutable')]
