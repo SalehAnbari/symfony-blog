@@ -71,7 +71,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/{id<\d+>}/edit', name: 'admin_post_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id<\d+>}/edit', name: 'admin_post_edit', methods: ['GET', 'POST', 'PUT'])]
     #[IsGranted('edit', subject: 'post', message: 'Posts can only be edited by their authors.')]
     public function edit(Request $request, Post $post, EntityManagerInterface $entityManager): Response
     {

@@ -24,7 +24,10 @@ class Post
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Assert\NotBlank(message: 'This field should not be blank.')]
+    #[
+        Assert\NotBlank(message: 'This field should not be blank.'),
+        Assert\Length(min: 50, minMessage: 'Title must be at least 50 characters')
+    ]
     private $title;
 
     #[ORM\Column(type: 'string', length: 255)]
@@ -73,7 +76,8 @@ class Post
         return $this->title;
     }
 
-    public function setTitle(?string $title): void
+//    #[Assert\Length(min: 50, minMessage: 'Title must be at least 50 characters')]
+    public function setTitle(string $title): void
     {
         $this->title = $title;
     }

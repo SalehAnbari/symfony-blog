@@ -91,7 +91,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\IsTrue(message: 'The password cannot match your Username')]
     public function isPasswordSafe(): string
     {
-        return $this->username === $this->password;
+        return $this->username !== $this->password;
     }
 
     /**

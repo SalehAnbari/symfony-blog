@@ -10,11 +10,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class BlogController extends AbstractController
 {
-    #[Route('/', name: 'homepage')]
+    #[Route('/', name: 'homepage', methods: ['GET'])]
     public function index(ManagerRegistry $doctrine): Response
     {
         $posts = $doctrine->getRepository(Post::class)->getAllPosts();
@@ -23,7 +22,8 @@ class BlogController extends AbstractController
         ]);
     }
 
-    #[Route('/article/{slug}', name: 'read_post')]
+
+    #[Route('/article/{slug}', name: 'read_post', methods: ['GET', 'POST'])]
     public function read(Post $post, Request $request, ManagerRegistry $doctrine): Response
     {
         $views = $post->getPostViews();
